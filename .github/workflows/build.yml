@@ -28,10 +28,10 @@ jobs:
 
       - name: Patch
         run: |
-          sed -i.bak 's#com.opa334.TrollStore#com.apple.tips#g' ./Shared/TSUtil.h  && rm -f ./Shared/TSUtil.h.bak
-          sed -i.bak 's#com.opa334.TrollStore#com.apple.tips#g' ./TrollStore/Resources/Info.plist  && rm -f ./TrollStore/Resources/Info.plist.bak
+          sed -i.bak 's#com.opa334.TrollStore#com.apple.tips#g' ./Shared/TSUtil.h && rm -f ./Shared/TSUtil.h.bak
+          sed -i.bak 's#com.opa334.TrollStore#com.apple.tips#g' ./TrollStore/Resources/Info.plist && rm -f ./TrollStore/Resources/Info.plist.bak
           sed -i.bak 's#build_installer15 build_installer64e##g' ./Makefile && rm -f ./Makefile.bak
-          sed -i.bak 's#./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper#./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper && curl -L -o ./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper https://github.com/opa334/TrollStore/releases/latest/download/PersistenceHelper_Embedded#g' ./Makefile && rm -f ./Makefile.bak
+          sed -i.bak 's#./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper#./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper \&\& curl -L -o ./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper https://github.com/opa334/TrollStore/releases/latest/download/PersistenceHelper_Embedded#g' ./Makefile && rm -f ./Makefile.bak
 
       - name: Build TrollStore
         run: |
