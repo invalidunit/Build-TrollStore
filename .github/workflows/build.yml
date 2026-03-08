@@ -33,15 +33,16 @@ jobs:
           sed -i.bak 's#build_installer15 build_installer64e##g' ./Makefile && rm -f ./Makefile.bak
           sed -i.bak 's#./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper#./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper \&\& curl -L -o ./TrollStore/.theos/obj/TrollStore.app/PersistenceHelper https://github.com/opa334/TrollStore/releases/latest/download/PersistenceHelper_Embedded#g' ./Makefile && rm -f ./Makefile.bak
 
-      - name: Build TrollStore
-        run: |
-          make
-
       - name: Generate timestamp version
         id: version
         run: |
-          VERSION=$(date +%Y%m%d-%H%M%S)
+          VERSION=$(date +%s)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build TrollStore
+        run: |
+          make
+          mv ./_build/TrollStore.tar ./_build/TrollStore-${{ steps.version.outputs.version }}.tar
 
       - name: Create Release & Upload File
         uses: softprops/action-gh-release@v2
@@ -49,4 +50,4 @@ jobs:
           tag_name: ${{ steps.version.outputs.version }}
           name: TrollStore(com.apple.tips) ${{ steps.version.outputs.version }}
           generate_release_notes: false
-          files: ./_build/TrollStore.tar
+          files: ./_build/TrollStore-${{ steps.version.outputs.version }}.tar
